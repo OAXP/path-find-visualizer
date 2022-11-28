@@ -5,11 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { ChakraProvider } from '@chakra-ui/react'
+import { ColorModeScript } from "@chakra-ui/react";
+import Theme from "./theme/Theme";
+
+import { AlgoProvider } from "./hooks/AlgoProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
-    <App />
+      <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
+      <AlgoProvider>
+          <App />
+      </AlgoProvider>
   </ChakraProvider>
 );
 
