@@ -9,6 +9,7 @@ import { GiBrickWall, GiFinishLine } from "react-icons/gi";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 import { useAlgo } from "../hooks/AlgoProvider";
+import BFS from "../algos/BFS";
 
 const Header = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -68,7 +69,9 @@ const Header = () => {
                     isDisabled={run}
                     isActive={run}
                     onClick={() => {
-                        setRun(old => !old);
+                        setRun(true);
+                        const visitedOrder = BFS();
+                        // TODO function to visualize the path
                     }}
                 />
                 <Box>
