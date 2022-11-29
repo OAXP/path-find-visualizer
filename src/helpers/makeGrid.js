@@ -11,7 +11,8 @@ export function makeGrid(w, h){
                     isEnd: false,
                     isWall: false,
                     visited: false,
-                    previous: null
+                    previous: null,
+                    path: false
                 }
             );
         }

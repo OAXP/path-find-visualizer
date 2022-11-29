@@ -4,7 +4,7 @@ import Cell from "./Cell";
 
 export default function GridVis() {
 
-    const { grid } = useAlgo();
+    const { grid, setGrid, run, mode, start, end } = useAlgo();
 
     return (
         <Grid
@@ -17,7 +17,13 @@ export default function GridVis() {
             {
                 grid.map((value, y) => {
                     return value.map((e, x) => {
-                        return <Cell i={e.y} j={e.x} key={`${e.x}-${e.y}`} />;
+                        return (
+                            <Cell i={e.y} j={e.x} key={`${e.x}-${e.y}`}
+                                  grid={grid} setGrid={setGrid}
+                                  run={run} mode={mode}
+                                  start={start} end={end}
+                            />
+                        );
                     })
                 })
             }

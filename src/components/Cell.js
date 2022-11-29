@@ -4,9 +4,7 @@ import {Icon} from "@chakra-ui/icons";
 import { BsFillPinMapFill } from "react-icons/bs";
 import { GiBrickWall, GiFinishLine } from "react-icons/gi";
 
-export default function Cell({i, j}) {
-
-    const { grid, setGrid, run, mode, start, end } = useAlgo();
+export default function Cell({i, j, grid, setGrid, run, mode, start, end}) {
 
     return (
         <Flex
@@ -65,6 +63,8 @@ export default function Cell({i, j}) {
                     <Icon as={GiFinishLine}/> :
                 grid[i][j].isWall ?
                     <Icon as={GiBrickWall}/> :
+                grid[i][j].path ?
+                    <Box w={'full'} h={'full'} bg={'yellow'}/> :
                 grid[i][j].visited ?
                     // eslint-disable-next-line react-hooks/rules-of-hooks
                     <Box w={'full'} h={'full'} bg={useColorModeValue('black', 'gray.200')}/> :

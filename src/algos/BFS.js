@@ -1,7 +1,6 @@
 import { useAlgo } from "../hooks/AlgoProvider";
 
-export default function BFS() {
-    const { grid, start } = useAlgo();
+export default function BFS({grid, start}) {
 
     // const directions = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 
@@ -17,7 +16,10 @@ export default function BFS() {
 
     while (q.length) {
         const currentCell = q.shift();
-        if (currentCell.isEnd) return visitedOrder; // Use in other function
+        if (currentCell.isEnd) {
+            visitedOrder.push(currentCell);
+            return visitedOrder; // Use in other function
+        }
 
         if (
             !currentCell.isWall &&
@@ -62,4 +64,6 @@ export default function BFS() {
         }
 
     }
+
+    return visitedOrder;
 }
