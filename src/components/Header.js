@@ -105,6 +105,9 @@ const Header = () => {
                         setRst(old => !old);
                     }}
                 />
+                {
+                    // TODO create a random maze button and fix end not found
+                }
                 <IconButton
                     aria-label={'Start Algorithm'}
                     colorScheme='blue'

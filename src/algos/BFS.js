@@ -5,8 +5,8 @@ export default function BFS({grid, start}) {
     const q = [grid[start.current.y][start.current.x]];
     const visitedOrder = [];
     const visited = {};
-    for (let i = 0; i < 25; i++) {
-        for (let j = 0; j < 50; j++) {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
             visited[`${j}-${i}`] = false; // fills with false
         }
     }

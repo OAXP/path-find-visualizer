@@ -1,5 +1,4 @@
 import {Box, Flex, useColorModeValue} from "@chakra-ui/react";
-import {useAlgo} from "../hooks/AlgoProvider";
 import {Icon} from "@chakra-ui/icons";
 import { BsFillPinMapFill } from "react-icons/bs";
 import { GiBrickWall, GiFinishLine } from "react-icons/gi";
@@ -11,6 +10,8 @@ export default function Cell({i, j, grid, setGrid, run, mode, start, end}) {
             bg={useColorModeValue('gray.200', 'gray.900')}
             justifyContent={'center'}
             align={'center'}
+            h={'25px'}
+            w={'25px'}
             onClick={() => {
                 if (!run) {
                     switch (mode) {

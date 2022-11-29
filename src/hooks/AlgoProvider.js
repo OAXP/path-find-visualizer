@@ -11,16 +11,16 @@ export const AlgoProvider = ({children}) => {
 
     const [algo, setAlgo] = useState(''); // BFS, DFS
     const [run, setRun] = useState(false);
-    const [grid, setGrid] = useState(makeGrid(50, 25));
+    const [grid, setGrid] = useState(makeGrid(25, 25));
     const [mode, setMode] = useState(null);
     const [rst, setRst] = useState(false);
     const start = useRef({x:0, y:0});
-    const end = useRef({x:25, y:12});
+    const end = useRef({x:12, y:12});
 
     function reset() {
-        setGrid(makeGrid(50, 25));
+        setGrid(makeGrid(25, 25));
         start.current = {x:0, y:0};
-        end.current = {x:25, y:12};
+        end.current = {x:12, y:12};
     }
 
     useEffect(() => {
