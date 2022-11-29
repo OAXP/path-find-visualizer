@@ -54,7 +54,7 @@ export default function BFS({grid, start}) {
                 }
             }
 
-            if (x < grid[0].length) {
+            if (x < grid[0].length - 1) {
                 nextCell = grid[y][x + 1];
                 if (!visited[`${nextCell.x}-${nextCell.y}`]) {
                     nextCell.previous = currentCell;

@@ -22,7 +22,6 @@ const Header = () => {
             shortestPath.unshift(current);
             current = current.previous;
         }
-        shortestPath.push('stop');
         return shortestPath;
     }
 
@@ -44,6 +43,17 @@ const Header = () => {
     }
 
     function visualizePath(shortestPath) {
+        shortestPath.forEach((cell, index) => {
+            setTimeout(() => {
+                if (!cell.isStart && !cell.isEnd) {
+                    setGrid(old => {
+                        cell.path = true;
+                        old[cell.y][cell.x] = cell;
+                        return [...old];
+                    });
+                }
+            }, 50 * index);
+        });
         setRun(false);
     }
 
