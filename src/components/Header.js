@@ -10,6 +10,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 import { useAlgo } from "../hooks/AlgoProvider";
 import BFS from "../algos/BFS";
+import DFS from "../algos/DFS";
 
 const Header = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -25,7 +26,7 @@ const Header = () => {
         return shortestPath;
     }
 
-    function visualizeBFS(visitedOrder, shortestPath) {
+    function visualizeAlgo(visitedOrder, shortestPath) {
         visitedOrder.forEach((cell, index) => {
             setTimeout(() => {
                 if (!cell.isStart && !cell.isEnd) {
@@ -52,9 +53,9 @@ const Header = () => {
                         return [...old];
                     });
                 }
-            }, 50 * index);
+            }, 10 * index);
         });
-        setRun(false);
+        setTimeout(() => { setRun(false); }, 10 * shortestPath.length);
     }
 
     return (
@@ -111,11 +112,31 @@ const Header = () => {
                     isDisabled={run}
                     isActive={run}
                     onClick={() => {
+                        setGrid(old => {
+                            old.forEach(sub => {
+                                sub.forEach(cell => {
+                                    old[cell.y][cell.x].visited = false;
+                                    old[cell.y][cell.x].path = false;
+                                });
+                            });
+                            return [...old];
+                        });
                         setRun(true);
-                        const visitedOrder = BFS({grid, start});
+                        let visitedOrder;
+                        switch (algo) {
+                            case 'BFS':
+                                visitedOrder = BFS({grid, start});
+                                break;
+                            case 'DFS':
+                                visitedOrder = DFS({grid, start});
+                                break;
+                            default:
+                                visitedOrder = BFS({grid, start}); // Default is BFS
+                                break;
+                        }
                         const shortestPath = getShortestPath(visitedOrder);
                         // TODO function to visualize the path
-                        visualizeBFS(visitedOrder, shortestPath);
+                        visualizeAlgo(visitedOrder, shortestPath);
                     }}
                 />
                 <Box>

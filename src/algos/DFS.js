@@ -1,8 +1,8 @@
-export default function BFS({grid, start}) {
+export default function DFS({grid, start}) {
 
     // const directions = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 
-    const q = [grid[start.current.y][start.current.x]];
+    const stack = [grid[start.current.y][start.current.x]];
     const visitedOrder = [];
     const visited = {};
     for (let i = 0; i < 25; i++) {
@@ -12,8 +12,8 @@ export default function BFS({grid, start}) {
     }
 
 
-    while (q.length) {
-        const currentCell = q.shift();
+    while (stack.length) {
+        const currentCell = stack.pop();
         if (currentCell.isEnd) {
             visitedOrder.push(currentCell);
             return visitedOrder; // Use in other function
@@ -32,7 +32,7 @@ export default function BFS({grid, start}) {
                 nextCell = grid[y - 1][x];
                 if (!visited[`${nextCell.x}-${nextCell.y}`]) {
                     nextCell.previous = currentCell;
-                    q.push(nextCell);
+                    stack.push(nextCell);
                 }
             }
 
@@ -40,7 +40,7 @@ export default function BFS({grid, start}) {
                 nextCell = grid[y + 1][x];
                 if (!visited[`${nextCell.x}-${nextCell.y}`]) {
                     nextCell.previous = currentCell;
-                    q.push(nextCell);
+                    stack.push(nextCell);
                 }
             }
 
@@ -48,7 +48,7 @@ export default function BFS({grid, start}) {
                 nextCell = grid[y][x - 1];
                 if (!visited[`${nextCell.x}-${nextCell.y}`]) {
                     nextCell.previous = currentCell;
-                    q.push(nextCell);
+                    stack.push(nextCell);
                 }
             }
 
@@ -56,7 +56,7 @@ export default function BFS({grid, start}) {
                 nextCell = grid[y][x + 1];
                 if (!visited[`${nextCell.x}-${nextCell.y}`]) {
                     nextCell.previous = currentCell;
-                    q.push(nextCell);
+                    stack.push(nextCell);
                 }
             }
         }
