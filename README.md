@@ -3,8 +3,32 @@
 I created this project to learn more about path finding algorithms and how can they be shown visually using React JS.
 
 ## Preview
-![image](https://user-images.githubusercontent.com/26018596/204435786-32ff8a21-dac8-4741-ba0d-913c8c0b0fba.png)
+![image](https://user-images.githubusercontent.com/26018596/204711628-1e82bafc-7891-4a5b-a6ba-1907e4f859aa.png)
 
+## Buttons
+### Wall
+![image](https://user-images.githubusercontent.com/26018596/204711822-086c2097-b067-40c6-9646-638903e2fc84.png)
+By clicking on this button you activate the "place walls" mode and you can place walls anywhere on the grid.
+
+### Start Point
+![image](https://user-images.githubusercontent.com/26018596/204711970-c7694d58-cd8b-40d4-8f37-fade5981cf5f.png)
+By clicking on this button you activate the "place start point" mode and you can place the start point anywhere on the grid.
+
+### End Point
+![image](https://user-images.githubusercontent.com/26018596/204712059-52f8ad8e-e919-41e6-b65f-bfbbe4116592.png)
+By clicking on this button you activate the "place end point" mode and you can place the end point anywhere on the grid.
+
+### Reset
+![image](https://user-images.githubusercontent.com/26018596/204712124-582e5d4c-fabe-4e7c-9468-dd54ff485deb.png)
+Click to reset the grid to the initial state.
+
+### Random Maze Generator
+![image](https://user-images.githubusercontent.com/26018596/204712205-c7ee6919-b6eb-4783-8f72-0d321c73bfed.png)
+Click to generate a random maze. You have to place the starting and ending point after the generation.
+
+### Start Algo
+![image](https://user-images.githubusercontent.com/26018596/204712300-d07a3c51-9018-415a-b27f-e5bde1c9f221.png)
+Start looking for a path using the algorithm chosen in the dropdown.
 
 ## Available Scripts
 
