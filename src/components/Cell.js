@@ -33,7 +33,8 @@ export default function Cell({i, j, grid, setGrid, run, mode, start, end}) {
                         case 'putStart':
                             if(!grid[i][j].isWall && !grid[i][j].isStart && !grid[i][j].isEnd) {
                                 setGrid(old => {
-                                    old[start.current.y][start.current.x].isStart = false;
+                                    if (start.current !== null)
+                                        old[start.current.y][start.current.x].isStart = false;
                                     old[i][j].isStart = true;
                                     start.current = {x: j, y: i};
                                     return [...old];
@@ -43,7 +44,8 @@ export default function Cell({i, j, grid, setGrid, run, mode, start, end}) {
                         case 'putEnd':
                             if(!grid[i][j].isWall && !grid[i][j].isStart && !grid[i][j].isEnd) {
                                 setGrid(old => {
-                                    old[end.current.y][end.current.x].isEnd = false;
+                                    if (end.current !== null)
+                                        old[end.current.y][end.current.x].isEnd = false;
                                     old[i][j].isEnd = true;
                                     end.current = {x: j, y: i};
                                     return [...old];

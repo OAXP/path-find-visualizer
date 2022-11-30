@@ -1,20 +1,24 @@
 import {
     Box, Flex,
     IconButton, Select,
-    useColorMode, useColorModeValue
+    useColorMode, useColorModeValue,
+    useToast
 } from "@chakra-ui/react";
 import { BsFillPlayFill, BsFillPinMapFill } from "react-icons/bs";
 import { BiReset } from "react-icons/bi";
 import { GiBrickWall, GiFinishLine } from "react-icons/gi";
+import { FaRandom } from "react-icons/fa";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 import { useAlgo } from "../hooks/AlgoProvider";
 import BFS from "../algos/BFS";
 import DFS from "../algos/DFS";
+import makeMaze from "../algos/makeMaze";
 
 const Header = () => {
+    const toast = useToast();
     const { colorMode, toggleColorMode } = useColorMode();
-    const { algo, setAlgo, mode, setMode, setRst, run, setRun, start, grid, setGrid } = useAlgo();
+    const { algo, setAlgo, mode, setMode, setRst, run, setRun, start, end, grid, setGrid } = useAlgo();
 
     function getShortestPath(visitedOrder = []) {
         const shortestPath = [];
@@ -58,6 +62,18 @@ const Header = () => {
         setTimeout(() => { setRun(false); }, 10 * shortestPath.length);
     }
 
+    function removePath() {
+        setGrid(old => {
+            old.forEach(sub => {
+                sub.forEach(cell => {
+                    old[cell.y][cell.x].visited = false;
+                    old[cell.y][cell.x].path = false;
+                });
+            });
+            return [...old];
+        });
+    }
+
     return (
         <Box bg={useColorModeValue('gray.100', 'gray.900')} p={4}>
             <Flex
@@ -70,6 +86,7 @@ const Header = () => {
                     isActive={mode === 'putWall'}
                     isDisabled={run}
                     onClick={() => {
+                        removePath();
                         if (mode === 'putWall') setMode(null);
                         else setMode('putWall');
                     }}
@@ -81,6 +98,7 @@ const Header = () => {
                     isActive={mode === 'putStart'}
                     isDisabled={run}
                     onClick={() => {
+                        removePath();
                         if (mode === 'putStart') setMode(null);
                         else setMode('putStart');
                     }}
@@ -92,6 +110,7 @@ const Header = () => {
                     isActive={mode === 'putEnd'}
                     isDisabled={run}
                     onClick={() => {
+                        removePath();
                         if (mode === 'putEnd') setMode(null);
                         else setMode('putEnd');
                     }}
@@ -105,9 +124,17 @@ const Header = () => {
                         setRst(old => !old);
                     }}
                 />
-                {
-                    // TODO create a random maze button and fix end not found
-                }
+                <IconButton
+                    aria-label={'Random'}
+                    colorScheme='blue'
+                    icon={<FaRandom/>}
+                    isDisabled={run}
+                    onClick={() => {
+                        setGrid(makeMaze(25, 25));
+                        start.current = null;
+                        end.current = null;
+                    }}
+                />
                 <IconButton
                     aria-label={'Start Algorithm'}
                     colorScheme='blue'
@@ -115,15 +142,19 @@ const Header = () => {
                     isDisabled={run}
                     isActive={run}
                     onClick={() => {
-                        setGrid(old => {
-                            old.forEach(sub => {
-                                sub.forEach(cell => {
-                                    old[cell.y][cell.x].visited = false;
-                                    old[cell.y][cell.x].path = false;
-                                });
+                        if (start.current === null || end.current === null) {
+                            toast({
+                                title: 'Error',
+                                description: 'Please choose a start and an end.',
+                                status: 'error',
+                                duration: 2000,
+                                isClosable: true,
+                                position: 'bottom-left',
                             });
-                            return [...old];
-                        });
+                            return;
+                        }
+                        removePath();
+                        setMode(null);
                         setRun(true);
                         let visitedOrder;
                         switch (algo) {
@@ -138,7 +169,6 @@ const Header = () => {
                                 break;
                         }
                         const shortestPath = getShortestPath(visitedOrder);
-                        // TODO function to visualize the path
                         visualizeAlgo(visitedOrder, shortestPath);
                     }}
                 />
